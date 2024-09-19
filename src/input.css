@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Styles */
+html, body {
+    @apply h-full m-0 overflow-x-hidden;
+    min-height: 2000px;
+}
+
+body {
+    @apply bg-gray-900 text-white;
+    scroll-behavior: smooth;
+}
+
+/* Sidebar Component */
+@layer components {
+    .sidebar {
+        @apply bg-gray-700 w-64 p-6 flex flex-col hidden md:flex;
+    }
+
+    .sidebar .logo {
+        @apply text-4xl font-bold mb-6 text-center;
+    }
+
+    .sidebar .menu {
+        @apply space-y-4;
+    }
+    
+    .sidebar .menu li {
+        @apply cursor-pointer hover:text-gray-400 transition-colors duration-300;
+    }
+
+    .sidebar .playlists {
+        @apply mt-auto;
+    }
+
+    .sidebar .playlists h2 {
+        @apply text-xl font-semibold mb-4;
+    }
+
+    .sidebar .playlists ul {
+        @apply space-y-2;
+    }
+
+    .sidebar-toggle {
+        @apply md:hidden p-4;
+    }
+}
+
+/* Main Content Component */
+@layer components {
+    .main-content {
+        @apply flex-1 p-6 overflow-y-auto max-h-screen;
+        padding-bottom: 80px; /* Adjust this value to ensure space for the music player */
+    }
+
+    .banner {
+        @apply bg-gray-700 p-6 rounded-lg mb-10 text-center;
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .banner h2 {
+        @apply text-3xl font-bold mb-2;
+    }
+
+    .banner p {
+        @apply text-gray-400;
+    }
+
+    .banner:hover {
+        @apply scale-105 shadow-xl;
+    }
+
+    .content-section {
+        @apply mb-6;
+    }
+
+    .content-section h2 {
+        @apply text-2xl font-semibold mb-6;
+    }
+
+    .playlist {
+        @apply flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 bg-gray-800 p-4 rounded-lg shadow-lg;
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .playlist img {
+        @apply w-20 h-20 object-cover rounded-md;
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .playlist:hover {
+        @apply translate-y-[-5px];
+    }
+
+    .playlist:hover img {
+        @apply scale-110;
+    }
+
+    .playlist-info h4 {
+        @apply text-xl font-bold;
+    }
+
+    .playlist-info p {
+        @apply text-gray-400;
+    }
+}
+
+/* Music Player Component */
+@layer components {
+    .music-player {
+        @apply fixed bottom-0 left-0 right-0 bg-gray-800 p-4 flex flex-col md:flex-row items-center justify-between shadow-lg;
+        z-index: 50; /* Ensure it stays on top of other content */
+    }
+    .song-info {
+        @apply flex items-center space-x-4;
+    }
+
+    .song-info img {
+        @apply w-16 h-16 object-cover rounded-md;
+    }
+
+    .song-info h4 {
+        @apply text-lg font-bold;
+    }
+
+    .song-info p {
+        @apply text-gray-400;
+    }
+
+    .player-controls {
+        @apply ml-4 flex items-center justify-center space-x-4 mt-4 md:mt-0;
+    }
+
+    .player-controls button {
+        @apply text-2xl hover:text-gray-400 transition-transform duration-300 ease-in-out;
+    }
+
+    .player-controls button:active {
+        @apply scale-90;
+    }
+
+    #play-pause {
+        @apply text-3xl flex;
+    }
+
+    .progress-bar {
+        @apply flex-1 mx-4 my-4 md:my-0 relative ;
+    }
+
+    .progress-bar input[type="range"] {
+        @apply w-full h-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out;;
+        background: linear-gradient(to right, #a855f7 var(--progress-start), #a855f7 var(--progress-end), #a855f7 var(--progress-end), #4b5563 100%);
+        border-radius: 9999px;
+    }
+
+    .progress-bar input[type="range"]::-webkit-slider-thumb {
+        @apply w-6 h-6 rounded-full cursor-pointer  bg-gray-500;
+        background-color: #a855f7; /* สีม่วงสำหรับ thumb */
+        border-radius: 50%;
+        /* Ensure the thumb is visible */
+        -webkit-appearance: none;
+    }
+
+    .progress-bar input[type="range"]::-moz-range-thumb {
+        @apply w-6 h-6 rounded-full cursor-pointer bg-gray-500;
+        background-color: #a855f7; /* สีม่วงสำหรับ thumb */
+        border-radius: 50%;
+        
+    }
+
+    .progress-bar input[type="range"]::-ms-thumb {
+        @apply w-6 h-6 rounded-full cursor-pointer;
+        background-color: #a855f7; /* สีม่วงสำหรับ thumb */
+        border-radius: 50%;
+    }
+
+    .progress-bar input[type="range"]::-webkit-slider-runnable-track {
+        @apply bg-gray-600;
+        border-radius: 9999px;
+    }
+
+    .progress-bar input[type="range"]:hover::-webkit-slider-thumb {
+        @apply scale-100;
+    }
+}
+
+@layer components {
+    .volume-control {
+        @apply mt-1 md:mt-1 flex items-center space-x-4 ;
+    }
+
+    .volume-slider {
+        @apply w-full h-2 bg-gray-700 rounded-full cursor-pointer;
+        @apply transition-all duration-300 ease-in-out;
+        border-radius: 9999px;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+        @apply w-4 h-4 rounded-full cursor-pointer;
+        background-color: rebeccapurple; /* สีม่วงสำหรับ thumb */
+        border-radius: 50%;
+        /* Ensure the thumb is visible */
+        -webkit-appearance: none;
+    }
+
+    .volume-slider::-moz-range-thumb {
+        @apply w-4 h-4 rounded-full cursor-pointer;
+        background-color: rebeccapurple; /* สีม่วงสำหรับ thumb */
+        border-radius: 50%;
+    }
+
+    .volume-slider::-ms-thumb {
+        @apply w-4 h-4 rounded-full cursor-pointer;
+        background-color: rebeccapurple; /* สีม่วงสำหรับ thumb */
+        border-radius: 50%;
+    }
+
+    .volume-slider::-webkit-slider-runnable-track {
+        @apply bg-gray-600;
+        border-radius: 9999px;
+    }
+
+    .volume-slider:hover::-webkit-slider-thumb {
+        @apply scale-110;
+    }
+    .volume-control i{
+        @apply text-gray-300;
+    }
+}
