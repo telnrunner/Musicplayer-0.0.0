@@ -41,35 +41,6 @@ let currentSongIndex = 0;
 let isPlaying = false;
 let audio = new Audio(playlist[currentSongIndex].src);
 
-
-// ฟังก์ชันอัปเดตเวลา
-function updateTime() {
-    const currentMinutes = Math.floor(audio.currentTime / 60);
-    const currentSeconds = Math.floor(audio.currentTime % 60);
-    const durationMinutes = Math.floor(audio.duration / 60);
-    const durationSeconds = Math.floor(audio.duration % 60);
-
-    currentTimeEl.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
-    durationEl.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
-}
-
-// อัปเดตแถบความก้าวหน้าของโปรเกรสบาร์
-function updateProgress() {
-    const value = progressBar.value;
-    const percentage = (value / 100) * 100;
-    progressBar.style.background = `linear-gradient(to right, #a855f7 ${percentage}%, #4b5563 ${percentage}%)`;
-}
-
-// อัปเดตเวลาเมื่อเพลงเล่น
-audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        progressBar.value = progress;
-        updateProgress();
-        updateTime();
-    }
-});
-
 // ฟังก์ชันโหลดเพลง
 function loadSong(index) {
     const song = playlist[index];
@@ -125,6 +96,34 @@ audio.addEventListener('timeupdate', () => {
 progressBar.addEventListener('input', (event) => {
     const value = event.target.value;
     audio.currentTime = (value / 100) * audio.duration;
+});
+
+// ฟังก์ชันอัปเดตเวลา
+function updateTime() {
+    const currentMinutes = Math.floor(audio.currentTime / 60);
+    const currentSeconds = Math.floor(audio.currentTime % 60);
+    const durationMinutes = Math.floor(audio.duration / 60);
+    const durationSeconds = Math.floor(audio.duration % 60);
+
+    currentTimeEl.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
+    durationEl.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
+}
+
+// อัปเดตแถบความก้าวหน้าของโปรเกรสบาร์
+function updateProgress() {
+    const value = progressBar.value;
+    const percentage = (value / 100) * 100;
+    progressBar.style.background = `linear-gradient(to right, #a855f7 ${percentage}%, #4b5563 ${percentage}%)`;
+}
+
+// อัปเดตเวลาเมื่อเพลงเล่น
+audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.value = progress;
+        updateProgress();
+        updateTime();
+    }
 });
 
 // เปลี่ยนเพลงก่อนหน้า
