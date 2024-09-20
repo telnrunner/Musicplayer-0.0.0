@@ -53,6 +53,13 @@ function updateTime() {
     durationEl.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
 }
 
+// อัปเดตแถบความก้าวหน้าของโปรเกรสบาร์
+function updateProgress() {
+    const value = progressBar.value;
+    const percentage = (value / 100) * 100;
+    progressBar.style.background = `linear-gradient(to right, #a855f7 ${percentage}%, #4b5563 ${percentage}%)`;
+}
+
 // อัปเดตเวลาเมื่อเพลงเล่น
 audio.addEventListener('timeupdate', () => {
     if (audio.duration) {
@@ -136,13 +143,6 @@ nextButton.addEventListener('click', () => {
 volumeSlider.addEventListener('input', (event) => {
     audio.volume = event.target.value;
 });
-
-// อัปเดตแถบความก้าวหน้าของโปรเกรสบาร์
-function updateProgress() {
-    const value = progressBar.value;
-    const percentage = (value / 100) * 100;
-    progressBar.style.background = `linear-gradient(to right, #a855f7 ${percentage}%, #4b5563 ${percentage}%)`;
-}
 
 // โหลดเพลงเริ่มต้น
 loadSong(currentSongIndex);
